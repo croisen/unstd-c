@@ -8,4 +8,5 @@ A recreation of the C stdlib built on top of Linux syscalls and inline assembly
 -   [x] Make the C runtime object
 -   [x] Pass the usual args to main via inline assembly
 -   [x] Make a generic syscall function
--   [ ] Implement the syscalls as c functions
+-   [x] Implement the syscalls as C functions
+-   [ ] Implement the other C std functions

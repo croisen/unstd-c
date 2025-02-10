@@ -1,4 +1,4 @@
-#include "syscall.h"
+#include "stdlib.h"
 
 void _start(void) {
   long status;
@@ -9,6 +9,5 @@ void _start(void) {
                    :
                    : "rcx", "r11", "memory");
 
-  syscall(1, 1, "Hello, World!\n", 14);
-  syscall(60, status);
+  exit(status);
 }
