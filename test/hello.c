@@ -1,1 +1,1 @@
-int main(void) { return 255; }
+int main(int argc, char **argv) { return argc; }
