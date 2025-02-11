@@ -2,8 +2,8 @@
 
 void _start(void) {
   long status;
-  __asm__ volatile("mov 24(%%rsp), %%rdi\n"
-                   "lea 32(%%rsp), %%rsi\n"
+  __asm__ volatile("mov 8(%%rsp), %%rdi\n"
+                   "lea 16(%%rsp), %%rsi\n"
                    "call main\n"
                    : "=a"(status)
                    :

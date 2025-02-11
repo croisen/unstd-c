@@ -1075,7 +1075,7 @@ static bool nobita_dir_exist(char *path) {
 static bool nobita_build_objects(struct nobita_target *t) {
   bool rebuild = false;
   for (size_t i = 0; i < t->objects_used; i++) {
-    if (!nobita_is_a_newer(t->objects[i], t->sources[i]) || rebuild) {
+    if (!nobita_is_a_newer(t->objects[i], t->sources[i])) {
       vector_append(t, full_cmd, t->comp_opts.cc);
       vector_append_vector(t, full_cmd, t, cflags);
 

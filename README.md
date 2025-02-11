@@ -10,6 +10,8 @@ for x86_64 arch
 -   [ASM cheatsheet - x86_64](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
 -   [GCC's extended inline assembly docs](https://gcc.gnu.org/onlinedocs/gcc/Using-Assembly-Language-with-C.html)
 -   [Linux errno list](https://gist.github.com/greggyNapalm/2413028)
+-   [C99 Standard](https://www.dii.uchile.cl/~daespino/files/Iso_C_1999_definition.pdf)
+-   [GCC Statement Macros](http://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html)
 
 ## TODOs
 
