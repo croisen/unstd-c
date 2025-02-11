@@ -3,10 +3,7 @@
 
 #include "stddef.h"
 
-#include <sys/stat.h>
-#include <sys/types.h>
-
-typedef struct pollfd pollfd;
+#include "sys/types.h"
 
 void _exit(int status);
 ssize_t read(int fd, char *buf, size_t count);
@@ -18,10 +15,9 @@ int poll(struct pollfd *ufds, unsigned int nfds, long timeout_msecs);
 
 off_t lseek(int fd, off_t offset, unsigned int origin);
 
-void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_t off);
-int munmap(void *addr, size_t len);
-
-int brk(void *addr);
+void *sbrk(off_t increment)
+    __attribute__((deprecated("I don't know how this works")));
+int brk(void *addr) __attribute__((deprecated("I don't know how this works")));
 
 long syscall(long no, ...);
 

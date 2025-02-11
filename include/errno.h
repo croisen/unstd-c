@@ -1,7 +1,9 @@
 #ifndef _ERRNO_H
 #define _ERRNO_H
 
-#include <bits/errno.h>
-extern int errno;
+#include <asm-generic/errno.h>
+
+int *__errno_loc(void);
+#define errno *__errno_loc()
 
 #endif /* _ERRNO_H */

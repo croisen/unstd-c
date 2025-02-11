@@ -22,3 +22,9 @@ for x86_64 arch
 -   [x] Implement the syscalls as C functions
 -   [x] Rely more on the built-in headers for linux related functions
 -   [ ] Implement the other C std functions
+
+## The I dunno issues
+
+-   The signal stuff
+-   sbrk and brk
+-   mmap

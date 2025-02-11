@@ -1,0 +1,27 @@
+ColumnLimit: 80
+IndentWidth: 4
+
+AlignAfterOpenBracket: BlockIndent
+AlignArrayOfStructures: Left
+AlignOperands: Align
+AllowShortFunctionsOnASingleLine: false
+AlignTrailingComments: Always
+
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+
+BreakBeforeBraces: Linux
+BreakBeforeBinaryOperators: false
+
+IndentCaseLabels: false
+
+AlignConsecutiveAssignments:
+    Enabled: true
+    AcrossComments: true
+    AcrossEmptyLines: true
+    AlignCompound: true
+
+AlignConsecutiveMacros:
+    Enabled: true
+    AcrossComments: true
+    AcrossEmptyLines: true
