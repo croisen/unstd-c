@@ -1,4 +1,3 @@
--nostdinc
 -nostdlib
 -Inobita-build/include
 -Iinclude

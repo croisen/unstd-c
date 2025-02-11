@@ -6,7 +6,7 @@ void build(Nobita_Build *b) {
 
   Nobita_Shared_Lib *lc = Nobita_Build_Add_Shared_Lib(b, "c");
   Nobita_Target_Set_Build_Tool(lc, NOBITA_BT_GCC);
-  Nobita_Target_Add_Cflags(lc, "-nostdinc", "-nostdlib", "-g", "-fPIC", NULL);
+  Nobita_Target_Add_Cflags(lc, "-nostdlib", "-g", "-fPIC", NULL);
   Nobita_Target_Add_Sources(lc, "src/*/*.c", NULL);
   Nobita_Target_Add_Headers(lc, "include", "errno.h", "stdarg.h", "stdlib.h",
                             "syscall.h", "unistd.h", NULL);
@@ -18,7 +18,7 @@ void build(Nobita_Build *b) {
                             Nobita_GetCed(b));
   Nobita_Target_Add_Fmt_Arg(crt, NOBITA_T_CUSTOM_CMD, "%s", Nobita_GetLib(b));
   Nobita_Target_Set_Build_Tool(crt, NOBITA_BT_GCC);
-  Nobita_Target_Add_Cflags(crt, "-nostdinc", "-nostdlib", "-g", NULL);
+  Nobita_Target_Add_Cflags(crt, "-nostdlib", "-g", NULL);
   Nobita_Target_Add_Sources(crt, "crt/crt0.c", NULL);
   Nobita_Target_Add_Deps(crt, lc, NULL);
 
@@ -26,7 +26,7 @@ void build(Nobita_Build *b) {
   Nobita_Target_Add_Fmt_Arg(hello, NOBITA_T_LDFLAGS, "%s/crt0.o",
                             Nobita_GetLib(b));
   Nobita_Target_Set_Build_Tool(hello, NOBITA_BT_GCC);
-  Nobita_Target_Add_Cflags(hello, "-nostdinc", "-nostdlib", "-g", NULL);
+  Nobita_Target_Add_Cflags(hello, "-nostdlib", "-g", NULL);
   Nobita_Target_Add_Sources(hello, "test/hello.c", NULL);
   Nobita_Target_Add_LDflags(hello, "-lc", NULL);
   Nobita_Target_Add_Fmt_Arg(hello, NOBITA_T_LDFLAGS, "-Wl,-rpath,%s",

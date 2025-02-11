@@ -1,6 +1,6 @@
-#ifndef STDLIB_H
-#define STDLIB_H
+#ifndef _STDLIB_H
+#define _STDLIB_H
 
 void exit(int status);
 
-#endif /* STDLIB_H */
+#endif /* _STDLIB_H */
