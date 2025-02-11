@@ -37,29 +37,24 @@ typedef uint64_t uintptr_t;
 typedef int64_t intmax_t;
 typedef uint64_t uintmax_t;
 
-#define smin(count) -(2LL << (count - 1))
-#define smax(count) (2LL << (count - 1)) - 1
-#define umin(count) 0
-#define umax(count) ((2LU << (count - 1)) - 1
+#define INT8_MIN -127L
+#define INT16_MIN -32767L
+#define INT32_MIN -2147483647L
+#define INT64_MIN -9223372036854775807L
 
-#define INT8_MIN smin(8)
-#define INT16_MIN smin(16)
-#define INT32_MIN smin(32)
-#define INT64_MIN smin(64)
+#define INT8_MAX (127L)
+#define INT16_MAX (32767L)
+#define INT32_MAX (2147483647L)
+#define INT64_MAX (9223372036854775807L)
 
-#define INT8_MAX smax(8)
-#define INT16_MAX smax(16)
-#define INT32_MAX smax(32)
-#define INT64_MAX smax(64)
+#define UINT8_MIN (0UL)
+#define UINT16_MIN (0UL)
+#define UINT32_MIN (0UL)
+#define UINT64_MIN (0UL)
 
-#define UINT8_MIN umin(8)
-#define UINT16_MIN umin(16)
-#define UINT32_MIN umin(32)
-#define UINT64_MIN umin(64)
-
-#define UINT8_MAX umax(8)
-#define UINT16_MAX umax(16)
-#define UINT32_MAX umax(32)
-#define UINT64_MAX umax(64)
+#define UINT8_MAX (127UL)
+#define UINT16_MAX (65535UL)
+#define UINT32_MAX (4294967295UL)
+#define UINT64_MAX (18446744073709551615UL)
 
 #endif /* _STDINT_H */
