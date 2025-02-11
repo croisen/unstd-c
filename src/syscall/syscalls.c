@@ -1,4 +1,4 @@
-#include "syscall.h"
+#include "../misc/internal_syscall.h"
 
 _sca _syscall0(_sca no) {
   _sca ret;

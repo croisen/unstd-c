@@ -6,10 +6,10 @@ void build(Nobita_Build *b) {
 
   Nobita_Shared_Lib *lc = Nobita_Build_Add_Shared_Lib(b, "c");
   Nobita_Target_Set_Build_Tool(lc, NOBITA_BT_GCC);
-  Nobita_Target_Add_Cflags(lc, "-nostdinc", "-nostdlib", "-g", NULL);
+  Nobita_Target_Add_Cflags(lc, "-nostdinc", "-nostdlib", "-g", "-fPIC", NULL);
   Nobita_Target_Add_Sources(lc, "src/*/*.c", NULL);
-  Nobita_Target_Add_Headers(lc, "include", "stdlib.h", "syscall.h", "unistd.h",
-                            NULL);
+  Nobita_Target_Add_Headers(lc, "include", "errno.h", "stdarg.h", "stdlib.h",
+                            "syscall.h", "unistd.h", NULL);
 
   Nobita_CMD *crt = Nobita_Build_Add_CMD(b, "crt");
   Nobita_CMD_Add_Args(crt, "cp", NULL);
