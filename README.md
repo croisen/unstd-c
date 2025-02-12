@@ -27,4 +27,3 @@ for x86_64 arch
 
 -   The signal stuff
 -   sbrk and brk
--   mmap

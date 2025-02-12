@@ -44,7 +44,7 @@ _sca _syscall4(_sca no, _sca a, _sca b, _sca c, _sca d)
                      "syscall\n"
                      : "=a"(ret)
                      : "a"(no), "D"(a), "S"(b), "d"(c), "r"(d)
-                     : "rcx", "r11", "memory");
+                     : "r10", "rcx", "r11", "memory");
     return ret;
 }
 
@@ -56,7 +56,7 @@ _sca _syscall5(_sca no, _sca a, _sca b, _sca c, _sca d, _sca e)
                      "syscall\n"
                      : "=a"(ret)
                      : "a"(no), "D"(a), "S"(b), "d"(c), "r"(d), "r"(e)
-                     : "rcx", "r11", "memory");
+                     : "r10", "r8", "rcx", "r11", "memory");
     return ret;
 }
 
@@ -69,6 +69,6 @@ _sca _syscall6(_sca no, _sca a, _sca b, _sca c, _sca d, _sca e, _sca f)
                      "syscall\n"
                      : "=a"(ret)
                      : "a"(no), "D"(a), "S"(b), "d"(c), "r"(d), "r"(e), "r"(f)
-                     : "rcx", "r11", "memory");
+                     : "r10", "r8", "r9", "rcx", "r11", "memory");
     return ret;
 }
