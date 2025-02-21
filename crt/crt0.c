@@ -1,13 +1,12 @@
 #include "stdlib.h"
 
 void _start(void) {
-  long status;
-  __asm__ volatile("mov 8(%%rsp), %%rdi\n"
-                   "lea 16(%%rsp), %%rsi\n"
+  __asm__ volatile("mov (%%rsp), %%rdi\n"
+                   "lea 8(%%rsp), %%rsi\n"
                    "call main\n"
-                   : "=a"(status)
+                   "mov %%rax, %%rdi\n"
+                   "call exit\n"
+                   :
                    :
                    : "rcx", "r11", "memory");
-
-  exit(status);
 }

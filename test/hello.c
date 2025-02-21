@@ -40,5 +40,7 @@ int main(int argc, char **argv)
         write(1, a, 8);
 
     write(1, "Hello, World!\n", 14);
+    free(a);
+    free(b);
     return 0;
 }
