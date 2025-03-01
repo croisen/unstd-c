@@ -8,7 +8,7 @@ void free(void *ptr)
 {
     struct __heap_data *d = libc_mem;
     while (d != NULL) {
-        if (ptr > (void *)d && ptr < ((void *)d + d->size + sizeof(*d)))
+        if (ptr > (void *)d && ptr < ((void *)d + d->orig_size))
             break;
 
         d = d->next;
@@ -41,7 +41,10 @@ ret:
         if (d->prev == NULL)
             libc_mem = d->next;
         else
-            d->prev->next = NULL;
+            d->prev->next = d->next;
+
+        if (d->next != NULL)
+            d->next->prev = d->prev;
 
         munmap(d, d->orig_size);
     }

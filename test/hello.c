@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
     char *a = malloc(8);
-    char *b = malloc(9);
+    char *b = malloc(8192);
     if (a != NULL) {
         a[0] = 'C';
         a[1] = 'r';
