@@ -7,7 +7,10 @@ void build(Nobita_Build *b)
 
     Nobita_Shared_Lib *lc = Nobita_Build_Add_Shared_Lib(b, "c");
     Nobita_Target_Set_Build_Tool(lc, NOBITA_BT_GCC);
-    Nobita_Target_Add_Cflags(lc, "-nostdlib", "-g", "-fPIC", NULL);
+    Nobita_Target_Add_Cflags(lc, 
+            "-Wall", "-Wextra", "-Wpedantic",
+            "-nostdlib", "-g", "-fPIC",
+    NULL);
     Nobita_Target_Add_Sources(lc, "src/*/*.c", "src/*/*/*.c", NULL);
     Nobita_Target_Add_Headers(
         lc, "include", "errno.h", "stdarg.h", "stddef.h", "stdlib.h",

@@ -6,9 +6,12 @@
 
 void free(void *ptr)
 {
+    if (ptr == NULL)
+        return;
+
     struct __heap_data *d = libc_mem;
     while (d != NULL) {
-        if (ptr > (void *)d && ptr < ((void *)d + d->orig_size))
+        if (IS_PTR_IN_HEAP(ptr, d))
             break;
 
         d = d->next;
@@ -19,25 +22,9 @@ void free(void *ptr)
         exit(1);
     }
 
-    struct __heap_chunk_t *c = d->freed;
-    if (c == NULL) {
-        d->freed = (struct __heap_chunk_t *)ptr - 1;
-        goto ret;
-    }
-
-    while (1) {
-        if (c->next == NULL)
-            break;
-
-        c = c->next;
-    }
-
     struct __heap_chunk_t *f = ((struct __heap_chunk_t *)ptr) - 1;
-    c->next                  = f;
-
-ret:
-    d->size += (f->size + sizeof(*c));
-    if (d->size == (d->orig_size - sizeof(*d))) {
+    d->size                 += (f->size + HEAP_CHUNK_SIZE);
+    if (d->size == (d->orig_size - HEAP_DATA__SIZE)) {
         if (d->prev == NULL)
             libc_mem = d->next;
         else

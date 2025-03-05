@@ -3,7 +3,8 @@
 
 int main(int argc, char **argv)
 {
-    char *a = malloc(8);
+    char *a = malloc(9);
+    char *c = malloc(99);
     char *b = malloc(8192);
     if (a != NULL) {
         a[0] = 'C';
@@ -41,6 +42,7 @@ int main(int argc, char **argv)
 
     write(1, "Hello, World!\n", 14);
     free(a);
+    free(c);
     free(b);
     return 0;
 }

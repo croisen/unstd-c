@@ -9,7 +9,11 @@ void *malloc(size_t size)
 {
     void *ret                = NULL;
     struct __heap_data *d   = libc_mem;
-    struct __heap_data *last = NULL;
+    struct __heap_data *last = find_last_heap();
+    size_t target_size = 
+        (size < (4096 - (HEAP_CHUNK_SIZE + HEAP_DATA__SIZE)))
+            ? 4096
+            : size + HEAP_CHUNK_SIZE;
 
     while (d != NULL && (size + sizeof(struct __heap_chunk_t)) >= d->size) {
         if (d->next == NULL)
@@ -18,46 +22,27 @@ void *malloc(size_t size)
         d = d->next;
     }
 
-    if (d == NULL) {
-        if (size < (4096 - (sizeof(struct __heap_chunk_t) + sizeof(*d)))) {
-            d = mmap(
-                NULL, 4096 + sizeof(*d), PROT_READ | PROT_WRITE,
-                MAP_PRIVATE | MAP_ANONYMOUS, -1, 0
-            );
-            if (d == MAP_FAILED)
-                goto ret;
-
-            d->size      = 4096;
-            d->orig_size = 4096 + sizeof(*d);
-        } else {
-            d = mmap(
-                NULL, size + sizeof(struct __heap_chunk_t) + sizeof(*d),
-                PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0
-            );
-            if (d == MAP_FAILED)
-                goto ret;
-
-            d->size = size + sizeof(struct __heap_chunk_t);
-            d->orig_size = size + sizeof(*d) + sizeof(struct __heap_chunk_t);
-        }
-
-        d->next  = NULL;
-        d->prev  = last;
-        d->freed = (struct __heap_chunk_t *)(d + 1);
-        if (d->prev != NULL)
-            d->prev->next = d;
-
-        if (libc_mem == NULL)
-            libc_mem = d;
+    if (d == NULL)
+    {
+        if ((d = new_heap(target_size, last)) == NULL)
+            return NULL;
+    }
+    else
+    {
+        merge_free_chunks(d);
     }
 
-    struct __heap_chunk_t *c  = d->freed;
-    c->size                   = size;
-    d->size               -= (size + sizeof(*c));
-    d->freed = (struct __heap_chunk_t *)((char *)c + sizeof(*c) + size);
-    d->freed->prev_size = c->size;
-    ret                    = c + 1;
+    struct __heap_chunk_t *c = find_free_chunk(d, size);
+    if (c == NULL) {
+        if ((d = new_heap(target_size, last)) == NULL)
+            return NULL;
+        else
+            c = find_free_chunk(d, size);
+    }
 
-ret:
+    trim_chunk(d, c, size);
+    d->size               -= (c->size + sizeof(*c));
+    c->freed               = false;
+    ret                    = c + 1;
     return ret;
 }
