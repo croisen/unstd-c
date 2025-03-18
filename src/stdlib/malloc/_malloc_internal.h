@@ -27,6 +27,7 @@ extern struct __heap_data *libc_mem;
 
 struct __heap_data *new_heap(size_t target_size, struct __heap_data *last);
 struct __heap_data *find_last_heap(void);
+struct __heap_data *find_heap(void *ptr);
 
 struct __heap_chunk_t *
 prev_chunk(struct __heap_data *d, struct __heap_chunk_t *c);
@@ -35,7 +36,8 @@ next_chunk(struct __heap_data *d, struct __heap_chunk_t *c);
 struct __heap_chunk_t *find_free_chunk(struct __heap_data *d, size_t size);
 void trim_chunk(struct __heap_data *d, struct __heap_chunk_t *c, size_t size);
 
-bool merge_chunk_after(struct __heap_data *d, struct __heap_chunk_t *c);
+bool merge_chunk_after1(struct __heap_data *d, struct __heap_chunk_t *c);
+bool merge_chunk_after2(struct __heap_data *d, struct __heap_chunk_t *c);
 void merge_free_chunks(struct __heap_data *d);
 
 #endif /* _MALLOC_INTERNAL_H */

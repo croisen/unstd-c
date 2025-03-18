@@ -42,6 +42,18 @@ struct __heap_data *find_last_heap(void)
     return d;
 }
 
+struct __heap_data *find_heap(void *ptr)
+{
+    if (libc_mem == NULL)
+        return NULL;
+
+    struct __heap_data *d = libc_mem;
+    while (d != NULL && !IS_PTR_IN_HEAP(ptr, d))
+        d = d->next;
+
+    return d;
+}
+
 struct __heap_chunk_t *
 prev_chunk(struct __heap_data *d, struct __heap_chunk_t *c)
 {
@@ -100,7 +112,7 @@ void trim_chunk(struct __heap_data *d, struct __heap_chunk_t *c, size_t size)
     c->size = size;
 }
 
-bool merge_chunk_after(struct __heap_data *d, struct __heap_chunk_t *c)
+bool merge_chunk_after1(struct __heap_data *d, struct __heap_chunk_t *c)
 {
     if (!c->freed)
         return false;
@@ -117,11 +129,25 @@ bool merge_chunk_after(struct __heap_data *d, struct __heap_chunk_t *c)
     return true;
 }
 
+bool merge_chunk_after2(struct __heap_data *d, struct __heap_chunk_t *c)
+{
+    struct __heap_chunk_t *next = next_chunk(d, c);
+    if (next == NULL || !next->freed)
+        return false;
+
+    struct __heap_chunk_t *nextnext = next_chunk(d, c);
+    if (nextnext != NULL)
+        nextnext->prev_size = c->size + next->size + HEAP_CHUNK_SIZE;
+
+    c->size = c->size + next->size + HEAP_CHUNK_SIZE;
+    return true;
+}
+
 void merge_free_chunks(struct __heap_data *d)
 {
     struct __heap_chunk_t *c = next_chunk(d, NULL);
     while (c != NULL)
-        if (merge_chunk_after(d, c))
+        if (merge_chunk_after1(d, c))
             continue;
         else
             c = next_chunk(d, c);

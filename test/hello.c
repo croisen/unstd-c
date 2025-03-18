@@ -1,8 +1,15 @@
 #include "stdlib.h"
+#include "string.h"
 #include "unistd.h"
 
 int main(int argc, char **argv)
 {
+    for (int i = 0; i < argc; i++)
+    {
+        write(1, argv[i], strlen(argv[i]));
+        write(1, "\n", 1);
+    }
+
     char *a = malloc(9);
     char *c = malloc(99);
     char *b = malloc(8192);
