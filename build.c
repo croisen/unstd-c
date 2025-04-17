@@ -12,8 +12,8 @@ void build(Nobita_Build *b)
             "-nostdlib", "-g", "-fPIC",
     NULL);
     Nobita_Target_Add_Sources(lc, "src/*/*.c", "src/*/*/*.c", NULL);
-    Nobita_Target_Add_Headers(
-        lc, "include", "errno.h", "stdarg.h", "stddef.h", "stdlib.h",
+    Nobita_Target_Add_Headers(lc, "include",
+        "errno.h", "stdarg.h", "stddef.h", "stdlib.h", "stdio.h",
         "syscall.h", "unistd.h", "sys/stat.h", "sys/types.h", NULL
     );
 

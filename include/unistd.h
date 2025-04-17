@@ -3,6 +3,7 @@
 
 #include "stddef.h"
 
+#include "asm-generic/fcntl.h"
 #include "sys/types.h"
 
 void _exit(int status);
