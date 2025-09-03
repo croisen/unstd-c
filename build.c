@@ -5,16 +5,15 @@ void build(Nobita_Build *b)
 {
     Nobita_Try_Rebuild(b, __FILE__);
 
-    Nobita_Shared_Lib *lc = Nobita_Build_Add_Shared_Lib(b, "c");
+    Nobita_Shared_Lib *lc = Nobita_Build_Add_Shared_Lib(b, "unstd-c");
     Nobita_Target_Set_Build_Tool(lc, NOBITA_BT_GCC);
-    Nobita_Target_Add_Cflags(lc, 
-            "-Wall", "-Wextra", "-Wpedantic",
-            "-nostdlib", "-g", "-fPIC",
-    NULL);
-    Nobita_Target_Add_Sources(lc, "src/*/*.c", "src/*/*/*.c", NULL);
-    Nobita_Target_Add_Headers(lc, "include",
-        "errno.h", "stdarg.h", "stddef.h", "stdlib.h", "stdio.h",
-        "syscall.h", "unistd.h", "sys/stat.h", "sys/types.h", NULL
+    Nobita_Target_Add_Cflags(
+        lc, "-Wall", "-Wextra", "-Wpedantic", "-nostdlib", "-g", "-fPIC", NULL
+    );
+    Nobita_Target_Add_Sources(lc, "src/*/*/*.c", NULL);
+    Nobita_Target_Add_Headers(
+        lc, "include", "integer.h", "sys/linux/types.h", "sys/linux/syscall.h",
+        NULL
     );
 
     Nobita_CMD *crt = Nobita_Build_Add_CMD(b, "crt");
@@ -36,7 +35,7 @@ void build(Nobita_Build *b)
     Nobita_Target_Set_Build_Tool(hello, NOBITA_BT_GCC);
     Nobita_Target_Add_Cflags(hello, "-nostdlib", "-g", NULL);
     Nobita_Target_Add_Sources(hello, "test/hello.c", NULL);
-    Nobita_Target_Add_LDflags(hello, "-lc", NULL);
+    Nobita_Target_Add_LDflags(hello, "-lunstd-c", NULL);
     Nobita_Target_Add_Fmt_Arg(
         hello, NOBITA_T_LDFLAGS, "-Wl,-rpath,%s", Nobita_GetLib(b)
     );
